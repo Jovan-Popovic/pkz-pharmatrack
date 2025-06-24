@@ -1,39 +1,62 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="24dp">
 
-<Spinner
+    <!-- Spinner: first row -->
+    <Spinner
         android:id="@+id/spMed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Qty EditText: below the spinner -->
     <EditText
         android:id="@+id/etQtyDisp"
-        android:hint="Količina"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Medicine quantity"
         android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        app:layout_constraintTop_toBottomOf="@id/spMed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_margin="8dp" />
 
+    <!-- Patient EditText: below the qty field -->
     <EditText
         android:id="@+id/etPatient"
-        android:hint="Pacijent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Patient name"
+        app:layout_constraintTop_toBottomOf="@id/etQtyDisp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_margin="8dp" />
 
+    <!-- Dispense button: below patient field and just above the bottom-nav -->
     <Button
         android:id="@+id/btnDisp"
-        android:text="Izdaj"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Prescribe"
+        app:layout_constraintTop_toBottomOf="@id/etPatient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_margin="16dp" />
 
+    <!-- Bottom navigation bar pinned to the bottom -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_nav" />
-</LinearLayout>
+        app:menu="@menu/bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

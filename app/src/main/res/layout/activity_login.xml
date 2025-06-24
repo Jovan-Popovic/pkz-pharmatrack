@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent" android:padding="24dp">
 
-    <EditText android:id="@+id/etUser" android:hint="Korisničko ime" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_width="0dp" android:layout_height="wrap_content" />
+    <EditText android:id="@+id/etUser" android:hint="Username" app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_width="0dp" android:layout_height="wrap_content" />
 
-    <EditText android:id="@+id/etPass" android:hint="Lozinka" android:inputType="textPassword" app:layout_constraintTop_toBottomOf="@id/etUser" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_width="0dp" android:layout_height="wrap_content" />
+    <EditText android:id="@+id/etPass" android:hint="password" android:inputType="textPassword" app:layout_constraintTop_toBottomOf="@id/etUser" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_width="0dp" android:layout_height="wrap_content" />
 
-    <Button android:id="@+id/btnLogin" android:text="Prijava" app:layout_constraintTop_toBottomOf="@id/etPass" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <Button android:id="@+id/btnLogin" android:text="Log In" app:layout_constraintTop_toBottomOf="@id/etPass" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>

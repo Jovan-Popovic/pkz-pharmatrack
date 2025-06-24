@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="screen_padding">20dp</dimen>
+    <dimen name="field_spacing">12dp</dimen>
+    <dimen name="btn_top_spacing">24dp</dimen>
+</resources>

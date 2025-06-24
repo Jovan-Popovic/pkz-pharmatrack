@@ -34,6 +34,6 @@ public class LoginActivity extends AppCompatActivity {
             i.putExtra("currentUser", u);
             startActivity(i);
             finish();
-        } else Toast.makeText(this, "Pogrešan username ili lozinka", Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, "Wrong username or password", Toast.LENGTH_SHORT).show();
     }
 }

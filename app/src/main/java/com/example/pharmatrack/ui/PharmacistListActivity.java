@@ -10,11 +10,9 @@ import android.view.MenuItem;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +31,7 @@ public class PharmacistListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pharmacists);
 
         BottomNavigationView nav = findViewById(R.id.bottomNav);
-        nav.setSelectedItemId(R.id.menu_meds);
+        nav.setSelectedItemId(R.id.menu_users);
         nav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
@@ -46,7 +44,7 @@ public class PharmacistListActivity extends AppCompatActivity {
                 return true;
 
             } else if (id == R.id.menu_dispense) {
-                startActivity(new Intent(this, DispenseActivity.class));
+                startActivity(new Intent(this, PrescribeMedicineActivity.class));
                 return true;
             }
 
@@ -72,23 +70,23 @@ public class PharmacistListActivity extends AppCompatActivity {
     void dialogAdd() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_add_pharmacist, null);
         EditText u = view.findViewById(R.id.dlgUser), p = view.findViewById(R.id.dlgPass);
-        new AlertDialog.Builder(this).setTitle("Novi apotekar")
+        new AlertDialog.Builder(this).setTitle("New pharmacist")
                 .setView(view)
-                .setPositiveButton("Snimi", (d, which) -> {
+                .setPositiveButton("Save", (d, which) -> {
                     dao.add(u.getText().toString(), p.getText().toString(), false);
                     refresh();
                 })
-                .setNegativeButton("Odustani", null).show();
+                .setNegativeButton("Cancel", null).show();
     }
 
     void remove(int pos) {
         new AlertDialog.Builder(this)
-                .setMessage("Obrisati apotekara?")
-                .setPositiveButton("Da", (d, w) -> {
+                .setMessage("Remove pharmacist?")
+                .setPositiveButton("Yes", (d, w) -> {
                     dao.remove(pos + 1);
                     refresh();
                 })
-                .setNegativeButton("Ne", null).show();
+                .setNegativeButton("No", null).show();
     }
 
     @Override

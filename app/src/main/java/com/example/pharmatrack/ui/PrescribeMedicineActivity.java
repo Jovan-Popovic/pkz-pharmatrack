@@ -22,7 +22,7 @@ import com.example.pharmatrack.data.MedicineDao.MedicineItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DispenseActivity extends AppCompatActivity {
+public class PrescribeMedicineActivity extends AppCompatActivity {
     MedicineDao dao;
     Spinner spMed;
     EditText etQty, etPatient;
@@ -34,7 +34,7 @@ public class DispenseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dispense);
 
         BottomNavigationView nav = findViewById(R.id.bottomNav);
-        nav.setSelectedItemId(R.id.menu_meds);
+        nav.setSelectedItemId(R.id.menu_dispense);
         nav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
@@ -47,7 +47,7 @@ public class DispenseActivity extends AppCompatActivity {
                 return true;
 
             } else if (id == R.id.menu_dispense) {
-                startActivity(new Intent(this, DispenseActivity.class));
+                startActivity(new Intent(this, PrescribeMedicineActivity.class));
                 return true;
             }
 

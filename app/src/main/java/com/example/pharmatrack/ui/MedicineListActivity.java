@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,7 +39,7 @@ public class MedicineListActivity extends AppCompatActivity {
                 return true;
 
             } else if (id == R.id.menu_dispense) {
-                startActivity(new Intent(this, DispenseActivity.class));
+                startActivity(new Intent(this, PrescribeMedicineActivity.class));
                 return true;
             }
 
@@ -52,7 +51,7 @@ public class MedicineListActivity extends AppCompatActivity {
         adapter = new MedicineAdapter(dao.all(), item -> edit(item.id));
         rv.setAdapter(adapter);
         findViewById(R.id.fabAddMed).setOnClickListener(v -> add());
-        findViewById(R.id.fabDispense).setOnClickListener(v -> startActivity(new Intent(this, DispenseActivity.class)));
+        findViewById(R.id.fabDispense).setOnClickListener(v -> startActivity(new Intent(this, PrescribeMedicineActivity.class)));
     }
 
     void add() {

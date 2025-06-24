@@ -1,9 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
     <LinearLayout android:orientation="vertical" android:padding="24dp" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <EditText android:id="@+id/etName" android:hint="Naziv lijeka" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <EditText android:id="@+id/etManufacturer" android:hint="Proizvođač" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <EditText android:id="@+id/etQty" android:hint="Količina" android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <EditText android:id="@+id/etPrice" android:hint="Cijena" android:inputType="numberDecimal" android:layout_width="match_parent" android:layout_height="wrap_content" />
-        <Button android:id="@+id/btnSave" android:text="Snimi" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <EditText android:id="@+id/etName" android:hint="Medicine name" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <EditText android:id="@+id/etManufacturer" android:hint="Manufacturer" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <EditText android:id="@+id/etQty" android:hint="Quantity" android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <EditText android:id="@+id/etPrice" android:hint="Price" android:inputType="numberDecimal" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <Button android:id="@+id/btnSave" android:text="Save" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>

@@ -23,5 +23,5 @@ public class AddEditMedicineActivity extends AppCompatActivity {
     void save(){ String name=n.getText().toString(); int qty=Integer.parseInt(q.getText().toString());
         double price=Double.parseDouble(p.getText().toString()); String manuf=m.getText().toString();
         if(id==-1) dao.add(name,manuf,qty,price); else dao.update(id,name,manuf,qty,price);
-        Toast.makeText(this,"Sačuvano",Toast.LENGTH_SHORT).show(); finish(); }
+        Toast.makeText(this,"Saved",Toast.LENGTH_SHORT).show(); finish(); }
 }

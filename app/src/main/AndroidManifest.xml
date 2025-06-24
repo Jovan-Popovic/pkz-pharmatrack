@@ -7,12 +7,12 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PharmaTrack">
+        android:theme="@style/Theme.PharmaTrack.WithBar">
         <activity android:name=".ui.PrescribeMedicineActivity" />
         <activity android:name=".ui.AddEditMedicineActivity" />
         <activity android:name=".ui.MedicineListActivity" />
         <activity android:name=".ui.PharmacistListActivity" />
-        <activity android:name=".ui.LoginActivity" android:exported="true">
+        <activity android:name=".ui.LoginActivity" android:exported="true" android:theme="@style/Theme.PharmaTrack">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

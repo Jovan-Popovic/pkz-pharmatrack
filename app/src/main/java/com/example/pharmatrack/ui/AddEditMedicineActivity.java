@@ -2,6 +2,9 @@ package com.example.pharmatrack.ui;
 
 import android.os.Bundle;
 import android.widget.EditText;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +17,7 @@ public class AddEditMedicineActivity extends AppCompatActivity {
     MedicineDao dao;
     EditText n, m, q, p;
     long id = -1;
-    
+
     @Override
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
@@ -49,4 +52,24 @@ public class AddEditMedicineActivity extends AppCompatActivity {
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
         finish();
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            Intent i = new Intent(this, LoginActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

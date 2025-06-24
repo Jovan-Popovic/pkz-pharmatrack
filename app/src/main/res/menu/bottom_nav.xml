@@ -10,6 +10,6 @@
         android:title="Users" />
     <item
         android:id="@+id/menu_dispense"
-        android:icon="@drawable/ic_add"
+        android:icon="@drawable/plus"
         android:title="Prescribe" />
 </menu>

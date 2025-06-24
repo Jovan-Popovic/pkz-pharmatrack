@@ -1,0 +1,22 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.pharmatrack">
+
+    <application
+        android:allowBackup="true"
+        android:label="PharmaTrack"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.PharmaTrack">
+        <activity android:name=".ui.DispenseActivity" />
+        <activity android:name=".ui.AddEditMedicineActivity" />
+        <activity android:name=".ui.MedicineListActivity" />
+        <activity android:name=".ui.PharmacistListActivity" />
+        <activity android:name=".ui.LoginActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

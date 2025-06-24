@@ -70,23 +70,17 @@ public class PharmacistListActivity extends AppCompatActivity {
     void dialogAdd() {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_add_pharmacist, null);
         EditText u = view.findViewById(R.id.dlgUser), p = view.findViewById(R.id.dlgPass);
-        new AlertDialog.Builder(this).setTitle("New pharmacist")
-                .setView(view)
-                .setPositiveButton("Save", (d, which) -> {
-                    dao.add(u.getText().toString(), p.getText().toString(), false);
-                    refresh();
-                })
-                .setNegativeButton("Cancel", null).show();
+        new AlertDialog.Builder(this).setTitle("New pharmacist").setView(view).setPositiveButton("Save", (d, which) -> {
+            dao.add(u.getText().toString(), p.getText().toString(), false);
+            refresh();
+        }).setNegativeButton("Cancel", null).show();
     }
 
     void remove(int pos) {
-        new AlertDialog.Builder(this)
-                .setMessage("Remove pharmacist?")
-                .setPositiveButton("Yes", (d, w) -> {
-                    dao.remove(pos + 1);
-                    refresh();
-                })
-                .setNegativeButton("No", null).show();
+        new AlertDialog.Builder(this).setMessage("Remove pharmacist?").setPositiveButton("Yes", (d, w) -> {
+            dao.remove(pos + 1);
+            refresh();
+        }).setNegativeButton("No", null).show();
     }
 
     @Override

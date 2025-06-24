@@ -28,9 +28,9 @@ public class LoginActivity extends AppCompatActivity {
     void login() {
         String u = userEt.getText().toString().trim();
         String p = passEt.getText().toString();
-        if (dao.login(u,p)) {
+        if (dao.login(u, p)) {
             boolean admin = dao.isAdmin(u);
-            Intent i = new Intent(this, admin? PharmacistListActivity.class: MedicineListActivity.class);
+            Intent i = new Intent(this, admin ? PharmacistListActivity.class : MedicineListActivity.class);
             i.putExtra("currentUser", u);
             startActivity(i);
             finish();

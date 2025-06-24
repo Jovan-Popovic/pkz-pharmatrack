@@ -53,9 +53,17 @@ public class MedicineDao {
     }
 
     public static class MedicineItem {
-        public long id; public String name, manufacturer; public int qty; public double price;
+        public long id;
+        public String name, manufacturer;
+        public int qty;
+        public double price;
+
         public MedicineItem(long id, String name, String manufacturer, int qty, double price) {
-            this.id=id;this.name=name;this.manufacturer=manufacturer;this.qty=qty;this.price=price;
+            this.id = id;
+            this.name = name;
+            this.manufacturer = manufacturer;
+            this.qty = qty;
+            this.price = price;
         }
     }
 }

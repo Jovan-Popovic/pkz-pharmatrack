@@ -28,11 +28,11 @@ public class PharmaDbHelper extends SQLiteOpenHelper {
                 "price REAL);");
 
         db.execSQL("CREATE TABLE dispense(" +
-                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        "medicine_id INTEGER NOT NULL," +
-                        "qty INTEGER NOT NULL," +
-                        "patient TEXT NOT NULL," +
-                        "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(medicine_id) REFERENCES medicines(id));");
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "medicine_id INTEGER NOT NULL," +
+                "qty INTEGER NOT NULL," +
+                "patient TEXT NOT NULL," +
+                "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(medicine_id) REFERENCES medicines(id));");
 
         // create default admin
         db.execSQL("INSERT INTO pharmacists(username,password,is_admin) VALUES('admin','admin',1);");

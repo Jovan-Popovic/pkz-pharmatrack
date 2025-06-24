@@ -23,8 +23,8 @@ public class PharmacistDao {
         return db.insert("pharmacists", null, cv);
     }
 
-    public int remove(long id) {
-        return db.delete("pharmacists", "id=?", new String[]{String.valueOf(id)});
+    public void remove(long id) {
+        db.delete("pharmacists", "id=?", new String[]{String.valueOf(id)});
     }
 
     public boolean login(String user, String pass) {

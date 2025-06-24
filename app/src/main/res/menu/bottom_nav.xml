@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_meds"
-        android:icon="@drawable/ic_local_pharmacy"
-        android:title="Medicines" />
-    <item
         android:id="@+id/menu_users"
         android:icon="@drawable/account_circle"
         android:title="Users" />
     <item
-        android:id="@+id/menu_dispense"
-        android:icon="@drawable/plus"
+        android:id="@+id/menu_medicines"
+        android:icon="@drawable/medicines"
+        android:title="Medicines" />
+    <item
+        android:id="@+id/menu_prescribe"
+        android:icon="@drawable/assign_person"
         android:title="Prescribe" />
 </menu>

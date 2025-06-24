@@ -49,4 +49,9 @@ public class PharmacistDao {
         c.close();
         return list;
     }
+
+public void removeByUsername(String username) {
+    db.delete("pharmacists", "username=?", new String[]{username});
+}
+
 }

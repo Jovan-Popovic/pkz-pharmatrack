@@ -32,33 +32,17 @@ public class PrescribeMedicineActivity extends AppCompatActivity {
     protected void onCreate(Bundle saved) {
         super.onCreate(saved);
         setContentView(R.layout.activity_dispense);
+        String currentUser = getIntent().getStringExtra("currentUser");
 
         BottomNavigationView nav = findViewById(R.id.bottomNav);
-        nav.setSelectedItemId(R.id.menu_dispense);
-        nav.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
+        BottomNavigationHelper.setup(nav, this, currentUser);
 
-            if (id == R.id.menu_meds) {
-                startActivity(new Intent(this, MedicineListActivity.class));
-                return true;
-
-            } else if (id == R.id.menu_users) {
-                startActivity(new Intent(this, PharmacistListActivity.class));
-                return true;
-
-            } else if (id == R.id.menu_dispense) {
-                startActivity(new Intent(this, PrescribeMedicineActivity.class));
-                return true;
-            }
-
-            return false;
-        });
         dao = new MedicineDao(this);
         spMed = findViewById(R.id.spMed);
         etQty = findViewById(R.id.etQtyDisp);
         etPatient = findViewById(R.id.etPatient);
         refresh();
-        findViewById(R.id.btnDisp).setOnClickListener(v -> disp());
+        findViewById(R.id.btnDisp).setOnClickListener(v -> prescribe());
     }
 
     void refresh() {
@@ -68,22 +52,25 @@ public class PrescribeMedicineActivity extends AppCompatActivity {
         spMed.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, names));
     }
 
-    void disp() {
+    void prescribe() {
         int pos = spMed.getSelectedItemPosition();
         int q = Integer.parseInt(etQty.getText().toString());
         MedicineItem mi = meds.get(pos);
         if (q > mi.qty) {
-            Toast.makeText(this, "Nema dovoljno zaliha", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Not enough suplies", Toast.LENGTH_SHORT).show();
             return;
         }
         dao.dispense(mi.id, q);
-        Toast.makeText(this, "Izdato", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Prescribed", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MedicineListActivity.class);
+        intent.putExtra("currentUser", getIntent().getStringExtra("currentUser"));
+        startActivity(intent);
         finish();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 

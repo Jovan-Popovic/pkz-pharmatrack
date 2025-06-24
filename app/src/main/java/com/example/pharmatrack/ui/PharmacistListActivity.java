@@ -1,104 +1,110 @@
 package com.example.pharmatrack.ui;
 
-
 import android.content.Intent;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pharmatrack.R;
 import com.example.pharmatrack.data.PharmacistDao;
+import com.example.pharmatrack.util.SessionManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class PharmacistListActivity extends AppCompatActivity {
-    PharmacistDao dao;
-    ArrayAdapter<String> adapter;
+public class PharmacistListActivity extends AppCompatActivity implements PharmacistAdapter.DeleteListener {
+
+    private PharmacistDao pharmacistDao;
+    private PharmacistAdapter adapter;
+    private boolean isAdmin;
 
     @Override
-    protected void onCreate(Bundle saved) {
-        super.onCreate(saved);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_users);
+        if (getSupportActionBar() != null) getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setContentView(R.layout.activity_pharmacists);
+        String currentUser = getIntent().getStringExtra("currentUser");
+        pharmacistDao = new PharmacistDao(this);
+        isAdmin = pharmacistDao.isAdmin(currentUser);
 
         BottomNavigationView nav = findViewById(R.id.bottomNav);
-        nav.setSelectedItemId(R.id.menu_users);
-        nav.setOnItemSelectedListener(item -> {
-            int id = item.getItemId();
+        BottomNavigationHelper.setup(nav, this, currentUser);
 
-            if (id == R.id.menu_meds) {
-                startActivity(new Intent(this, MedicineListActivity.class));
-                return true;
+        RecyclerView recyclerView = findViewById(R.id.rvUsers);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new PharmacistAdapter(pharmacistDao.all(), isAdmin, this);
+        recyclerView.setAdapter(adapter);
 
-            } else if (id == R.id.menu_users) {
-                startActivity(new Intent(this, PharmacistListActivity.class));
-                return true;
-
-            } else if (id == R.id.menu_dispense) {
-                startActivity(new Intent(this, PrescribeMedicineActivity.class));
-                return true;
-            }
-
-            return false;
-        });
-        dao = new PharmacistDao(this);
-        ListView list = findViewById(R.id.listPharmacists);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dao.all());
-        list.setAdapter(adapter);
-        list.setOnItemLongClickListener((p, v, idx, id) -> {
-            remove(idx);
-            return true;
-        });
-        findViewById(R.id.fabAddPharm).setOnClickListener(v -> dialogAdd());
+        android.view.View addFab = findViewById(R.id.fabAddUser);
+        if (!isAdmin) addFab.setVisibility(android.view.View.GONE);
+        addFab.setOnClickListener(v -> showAddUserDialog());
     }
 
-    void refresh() {
-        adapter.clear();
-        adapter.addAll(dao.all());
-        adapter.notifyDataSetChanged();
+    private void showAddUserDialog() {
+        if (!isAdmin) return;
+
+        android.view.View dialogView = getLayoutInflater().inflate(R.layout.dialog_add_user, null);
+        android.widget.EditText userEt = dialogView.findViewById(R.id.dialogUsername);
+        android.widget.EditText passEt = dialogView.findViewById(R.id.dialogPassword);
+        android.widget.CheckBox adminCb = dialogView.findViewById(R.id.dialogAdmin);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Add user")
+                .setView(dialogView)
+                .setPositiveButton("Save", (d, w) -> {
+                    String u = userEt.getText().toString().trim();
+                    String p = passEt.getText().toString();
+                    boolean admin = adminCb.isChecked();
+                    pharmacistDao.add(u, p, admin);
+                    adapter.update(pharmacistDao.all());
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
-    void dialogAdd() {
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_add_pharmacist, null);
-        EditText u = view.findViewById(R.id.dlgUser), p = view.findViewById(R.id.dlgPass);
-        new AlertDialog.Builder(this).setTitle("New pharmacist").setView(view).setPositiveButton("Save", (d, which) -> {
-            dao.add(u.getText().toString(), p.getText().toString(), false);
-            refresh();
-        }).setNegativeButton("Cancel", null).show();
+    @Override
+    public void onDelete(String username) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete user")
+                .setMessage("Delete user " + username + "?")
+                .setPositiveButton("Delete", (d, w) -> {
+                    pharmacistDao.removeByUsername(username);
+                    adapter.update(pharmacistDao.all());
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
-    void remove(int pos) {
-        new AlertDialog.Builder(this).setMessage("Remove pharmacist?").setPositiveButton("Yes", (d, w) -> {
-            dao.remove(pos + 1);
-            refresh();
-        }).setNegativeButton("No", null).show();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.update(pharmacistDao.all());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
         if (item.getItemId() == R.id.action_logout) {
-            Intent i = new Intent(this, LoginActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
+            new SessionManager(this).clear();
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

@@ -34,6 +34,12 @@
             android:hint="Price"
             android:inputType="numberDecimal" />
 
+        <EditText
+    android:id="@+id/etExpiry"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Expiry (YYYY‑MM‑DD)" />
+
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class PharmaDbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "pharmatrack.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     public PharmaDbHelper(Context ctx) {
         super(ctx, DB_NAME, null, DB_VERSION);
@@ -25,7 +25,8 @@ public class PharmaDbHelper extends SQLiteOpenHelper {
                 "name TEXT NOT NULL," +
                 "manufacturer TEXT," +
                 "quantity INTEGER NOT NULL DEFAULT 0," +
-                "price REAL);");
+                "price REAL," +
+                "expiry TEXT);");
 
         db.execSQL("CREATE TABLE dispense(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
